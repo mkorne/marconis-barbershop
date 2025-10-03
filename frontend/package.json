@@ -1,0 +1,37 @@
+{
+  "name": "marconis-barbershop-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Marconi's Barber Shop Booking System",
+  "main": "public/index.html",
+  "scripts": {
+    "start": "live-server public --port=3000 --open=/",
+    "dev": "live-server public --port=3000 --open=/ --watch=src,public",
+    "build": "npm run copy-assets",
+    "copy-assets": "cp -r src/* public/ 2>/dev/null || true",
+    "serve": "http-server public -p 3000 -o",
+    "lint": "eslint src/js/**/*.js",
+    "format": "prettier --write src/js/**/*.js public/**/*.html"
+  },
+  "keywords": [
+    "barbershop",
+    "booking",
+    "vanilla-js",
+    "frontend"
+  ],
+  "author": "Marconi's Barber Shop",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "http-server": "^14.1.1",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.0"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.7.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
