@@ -8,18 +8,22 @@ class SMSService {
     
     // Initialize Twilio if credentials are provided
     if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
-      this.twilioClient = twilio(
-        process.env.TWILIO_ACCOUNT_SID,
-        process.env.TWILIO_AUTH_TOKEN
-      );
-      this.isConfigured = true;
-      logger.info('SMS service initialized with Twilio');
+      try {
+        this.twilioClient = twilio(
+          process.env.TWILIO_ACCOUNT_SID,
+          process.env.TWILIO_AUTH_TOKEN
+        );
+        this.isConfigured = true;
+        logger.info('SMS service initialized with Twilio');
+      } catch (err) {
+        logger.warn('SMS service initialization failed:', err.message);
+      }
     } else {
       logger.warn('SMS service not configured - Twilio credentials missing');
     }
   }
 
-  // Send SMS using Twilio
+  // Send SMS using Twilio with timeout
   async sendSMS(to, message) {
     try {
       if (!this.isConfigured) {
@@ -27,14 +31,18 @@ class SMSService {
         return { success: false, message: 'SMS service not configured' };
       }
 
-      // Format phone number for international format
       const formattedPhone = this.formatPhoneNumber(to);
 
-      const result = await this.twilioClient.messages.create({
-        body: message,
-        from: process.env.TWILIO_PHONE_NUMBER,
-        to: formattedPhone
-      });
+      const result = await Promise.race([
+        this.twilioClient.messages.create({
+          body: message,
+          from: process.env.TWILIO_PHONE_NUMBER,
+          to: formattedPhone
+        }),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('SMS timeout after 5s')), 5000)
+        )
+      ]);
 
       logger.info('SMS sent successfully', {
         to: formattedPhone,

@@ -5,7 +5,9 @@ const { authenticateAdmin, requireRole } = require('../middleware/adminAuth');
 
 // Public routes (no authentication required)
 router.post('/login', adminController.login);
-router.post('/register', adminController.register);
+
+// Protected admin registration (requires admin auth)
+router.post('/register', authenticateAdmin, adminController.register);
 
 // Test route
 router.get('/test', (req, res) => {

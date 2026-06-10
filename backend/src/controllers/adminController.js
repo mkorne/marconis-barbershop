@@ -7,9 +7,13 @@ const prisma = new PrismaClient();
 
 // Generate JWT token
 const generateToken = (adminId, username, role) => {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    throw new Error('JWT_SECRET environment variable is not set');
+  }
   return jwt.sign(
     { adminId, username, role },
-    process.env.JWT_SECRET || 'your-secret-key',
+    secret,
     { expiresIn: '24h' }
   );
 };

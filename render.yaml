@@ -1,0 +1,90 @@
+services:
+  # Backend API Service
+  - type: web
+    name: marconis-barbershop-backend
+    runtime: node
+    plan: starter
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install && npx prisma generate && npx prisma migrate deploy
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: marconis-barbershop-db
+          property: connectionString
+      - key: FRONTEND_URL
+        value: https://barbering.marconi.com
+      # These need to be set manually in Render dashboard
+      - key: JWT_SECRET
+        sync: false
+      - key: PAYSTACK_PUBLIC_KEY
+        sync: false
+      - key: PAYSTACK_SECRET_KEY
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_PHONE_NUMBER
+        sync: false
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: 587
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: BCRYPT_ROUNDS
+        value: 12
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
+      - key: BUSINESS_NAME
+        value: "Marconi's Barber Shop"
+      - key: BUSINESS_PHONE
+        value: 0599363145
+      - key: BUSINESS_EMAIL
+        value: info@marconis.com
+      - key: BUSINESS_ADDRESS
+        value: "123 Barber St, Accra, Ghana"
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      - key: ALLOWED_FILE_TYPES
+        value: image/jpeg,image/png,image/gif,image/webp
+
+  # Frontend Static Site
+  - type: static
+    name: marconis-barbershop-frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./public
+    rootDir: frontend
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+# PostgreSQL Database
+databases:
+  - name: marconis-barbershop-db
+    databaseName: marconis_db
+    user: marconis_user
+    plan: starter
+    region: oregon
+    postgresMajorVersion: 15

@@ -6,6 +6,18 @@ const socketHandler = (io) => {
   io.on('connection', (socket) => {
     logger.info(`Client connected: ${socket.id}`);
 
+    // Handle admin dashboard room joining
+    socket.on('join_admin_dashboard', () => {
+      socket.join('admin_dashboard');
+      logger.info(`Client ${socket.id} joined admin dashboard room`);
+    });
+
+    // Handle leaving admin dashboard room
+    socket.on('leave_admin_dashboard', () => {
+      socket.leave('admin_dashboard');
+      logger.info(`Client ${socket.id} left admin dashboard room`);
+    });
+
     // Handle chat messages
     socket.on('chat_message', (data) => {
       logger.info('Chat message received:', data);
@@ -39,4 +51,52 @@ const socketHandler = (io) => {
   });
 };
 
-module.exports = socketHandler;
+// Helper functions to emit dashboard events
+const emitDashboardUpdate = (io, eventType, data) => {
+  logger.info(`Emitting dashboard update: ${eventType}`, data);
+  io.to('admin_dashboard').emit('dashboard_update', {
+    type: eventType,
+    data: data,
+    timestamp: new Date().toISOString()
+  });
+};
+
+const emitNewBooking = (io, booking) => {
+  emitDashboardUpdate(io, 'new_booking', booking);
+};
+
+const emitBookingStatusUpdate = (io, booking) => {
+  emitDashboardUpdate(io, 'booking_status_update', booking);
+};
+
+const emitNewPayment = (io, payment) => {
+  emitDashboardUpdate(io, 'new_payment', payment);
+};
+
+const emitPaymentStatusUpdate = (io, payment) => {
+  emitDashboardUpdate(io, 'payment_status_update', payment);
+};
+
+const emitNewMessage = (io, message) => {
+  emitDashboardUpdate(io, 'new_message', message);
+};
+
+const emitMessageStatusUpdate = (io, message) => {
+  emitDashboardUpdate(io, 'message_status_update', message);
+};
+
+const emitStatsUpdate = (io, stats) => {
+  emitDashboardUpdate(io, 'stats_update', stats);
+};
+
+module.exports = {
+  socketHandler,
+  emitDashboardUpdate,
+  emitNewBooking,
+  emitBookingStatusUpdate,
+  emitNewPayment,
+  emitPaymentStatusUpdate,
+  emitNewMessage,
+  emitMessageStatusUpdate,
+  emitStatsUpdate
+};

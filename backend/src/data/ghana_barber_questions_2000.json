@@ -1,0 +1,733 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "description": "Comprehensive Ghana-specific barbershop FAQ dataset for Marconi's Barber Shop chatbot",
+    "language": "en-GH",
+    "total_questions": 80,
+    "categories": [
+      "pricing", "services", "hair_care", "local_customs", "products",
+      "booking", "location", "hours", "barbers", "kids", "events",
+      "loyalty", "payment", "maintenance", "styles", "beard",
+      "shaving", "corporate", "gift_cards", "faq"
+    ]
+  },
+  "questions": [
+    {
+      "id": 1,
+      "category": "pricing",
+      "question": "How much is a haircut?",
+      "keywords": ["price", "cost", "how much", "charge"],
+      "response": "Our classic haircut is ₵50, fade starts at ₵55, and a haircut with beard combo is ₵70. Kids cuts are ₵35. We offer great value for quality service!",
+      "variations": ["What are your prices?", "Cost of haircut", "How much do you charge?", "Haircut price"]
+    },
+    {
+      "id": 2,
+      "category": "pricing",
+      "question": "How much is a beard trim?",
+      "keywords": ["beard", "trim", "price", "cost"],
+      "response": "A beard trim is ₵30, beard shaping ₵35, and a full hot towel shave is ₵40. We also have a haircut + beard combo for ₵70.",
+      "variations": ["Beard trim cost", "Price for beard", "How much for beard shaping"]
+    },
+    {
+      "id": 3,
+      "category": "pricing",
+      "question": "Do you offer student discounts?",
+      "keywords": ["student", "discount", "cheap", "reduce"],
+      "response": "Yes! We offer a 10% student discount on all services Monday through Thursday. Just bring your valid student ID.",
+      "variations": ["Student price", "Discount for students", "Any student deals"]
+    },
+    {
+      "id": 4,
+      "category": "services",
+      "question": "What services do you offer?",
+      "keywords": ["services", "offer", "what do you do"],
+      "response": "We offer classic haircuts, fades, beard trims, hot towel shaves, kids cuts, hair dyeing, scalp treatments, and facial massages. All services include a complimentary neck shave and style consultation.",
+      "variations": ["What services", "List your services", "What can I get"]
+    },
+    {
+      "id": 5,
+      "category": "services",
+      "question": "Do you do dreadlocks?",
+      "keywords": ["dreadlocks", "locs", "dreads", "retwist"],
+      "response": "Yes! We offer dreadlock maintenance including retwisting, palm rolling, interlocking, and starter locs. Pricing starts at ₵60 depending on length and style.",
+      "variations": ["Dreadlock services", "Locs maintenance", "Can you do dreads"]
+    },
+    {
+      "id": 6,
+      "category": "services",
+      "question": "Do you do braids?",
+      "keywords": ["braids", "cornrows", "plait", "weave"],
+      "response": "We specialize in men's braiding including cornrows, straight backs, Ghana braids, and box braids. Prices start from ₵80 depending on complexity.",
+      "variations": ["Cornrows price", "Braiding services", "Ghana braids"]
+    },
+    {
+      "id": 7,
+      "category": "services",
+      "question": "Do you offer hair dyeing?",
+      "keywords": ["dye", "color", "bleach", "colour"],
+      "response": "Yes! We offer professional hair coloring including jet black, blond highlights, grey blends, and fashion colors. Prices start at ₵120. We use quality Schwartzkopf and L'Oreal products.",
+      "variations": ["Hair coloring", "Can I dye my hair", "Color services"]
+    },
+    {
+      "id": 8,
+      "category": "services",
+      "question": "What is a hot towel shave?",
+      "keywords": ["hot towel", "shave", "straight razor", "traditional"],
+      "response": "A hot towel shave is our premium traditional shaving experience. We apply hot towels to soften your beard, use pre-shave oil, then shave with a straight razor. Followed by a cold towel and moisturizer. It's ₵40 and takes about 30 minutes.",
+      "variations": ["Hot towel shave explained", "Traditional shave", "Premium shave"]
+    },
+    {
+      "id": 9,
+      "category": "services",
+      "question": "Do you do scalp treatments?",
+      "keywords": ["scalp", "dandruff", "treatment", "dry scalp"],
+      "response": "Yes! We offer deep cleansing scalp treatments for dandruff, dry scalp, and product buildup. Including steam therapy and nourishing oils. Prices from ₵55.",
+      "variations": ["Scalp care", "Dandruff treatment", "Scalp massage"]
+    },
+    {
+      "id": 10,
+      "category": "hair_care",
+      "question": "How often should I get a haircut?",
+      "keywords": ["often", "frequency", "regular", "schedule"],
+      "response": "For most styles, we recommend every 2-3 weeks to maintain your look. Fades and tapers need touch-ups every 1-2 weeks. Our regular customers typically visit twice a month.",
+      "variations": ["How frequent haircut", "When to cut hair", "Best schedule for haircuts"]
+    },
+    {
+      "id": 11,
+      "category": "hair_care",
+      "question": "How do I care for my fade?",
+      "keywords": ["fade", "maintain", "care", "keep"],
+      "response": "To maintain your fade: wash with mild shampoo 2-3 times a week, moisturize daily, and visit us every 1-2 weeks for a refresh. Avoid hats right after a fresh cut.",
+      "variations": ["Fade maintenance", "Keep fade fresh", "Fade care tips"]
+    },
+    {
+      "id": 12,
+      "category": "hair_care",
+      "question": "What products should I use for my hair type?",
+      "keywords": ["products", "hair type", "recommend", "best"],
+      "response": "For African hair textures, we recommend sulfate-free shampoos, leave-in conditioners, and natural oils like jojoba or argan. We stock SheaMoisture, Cantu, and local Ghanaian shea butter products.",
+      "variations": ["Best products for black hair", "Hair product recommendations", "What to use on my hair"]
+    },
+    {
+      "id": 13,
+      "category": "hair_care",
+      "question": "How do I deal with dandruff?",
+      "keywords": ["dandruff", "flakes", "itchy", "scalp"],
+      "response": "We recommend our anti-dandruff scalp treatment (₵55). At home, use a gentle shampoo, avoid over-washing, and apply tea tree or peppermint oil. Our barbers can assess your scalp and recommend the best approach.",
+      "variations": ["Dandruff solution", "Flaky scalp", "Itchy scalp treatment"]
+    },
+    {
+      "id": 14,
+      "category": "hair_care",
+      "question": "How do I grow my hair faster?",
+      "keywords": ["grow", "growth", "longer", "fast"],
+      "response": "For healthy hair growth: get regular trims (every 6-8 weeks), massage your scalp daily, use biotin-rich products, eat protein-rich foods, and stay hydrated. We also offer hot oil treatments to stimulate growth.",
+      "variations": ["Hair growth tips", "Make hair grow", "Longer hair"]
+    },
+    {
+      "id": 15,
+      "category": "local_customs",
+      "question": "Do you accept Mobile Money?",
+      "keywords": ["mobile money", "momo", "MTN", "Vodafone"],
+      "response": "Yes! We accept MTN Mobile Money, Vodafone Cash, and AirtelTigo Money. You can also pay with cash or card. All mobile money payments are instant.",
+      "variations": ["MoMo payment", "Mobile money payment", "Can I pay with Momo"]
+    },
+    {
+      "id": 16,
+      "category": "local_customs",
+      "question": "Where are you located in Accra?",
+      "keywords": ["location", "address", "where", "Accra"],
+      "response": "We are located at 123 Barber Street, Osu, Accra. Near the Osu Oxford Street junction, opposite the Total filling station. You can't miss our red and white sign!",
+      "variations": ["Shop location", "Your address", "How to find you"]
+    },
+    {
+      "id": 17,
+      "category": "local_customs",
+      "question": "What are your opening hours?",
+      "keywords": ["hours", "open", "close", "time"],
+      "response": "We are open Monday to Saturday from 8:00 AM to 8:00 PM. Sundays from 12:00 PM to 6:00 PM. We're closed on public holidays.",
+      "variations": ["Opening hours", "When are you open", "Business hours"]
+    },
+    {
+      "id": 18,
+      "category": "local_customs",
+      "question": "Do you operate on Sundays?",
+      "keywords": ["Sunday", "weekend", "open Sunday"],
+      "response": "Yes! We are open on Sundays from 12:00 PM to 6:00 PM. Sundays are popular so we recommend booking in advance.",
+      "variations": ["Sunday hours", "Are you open Sunday", "Weekend hours"]
+    },
+    {
+      "id": 19,
+      "category": "booking",
+      "question": "How do I book an appointment?",
+      "keywords": ["book", "appointment", "reserve", "schedule"],
+      "response": "You can book online through our website, call us at 0599363145, or visit us in person. Online booking is available 24/7 and you can choose your preferred barber and time slot.",
+      "variations": ["Make a booking", "Reserve a slot", "How to book"]
+    },
+    {
+      "id": 20,
+      "category": "booking",
+      "question": "Can I book a specific barber?",
+      "keywords": ["specific", "barber", "choose", "prefer"],
+      "response": "Absolutely! When booking online or over the phone, just request your preferred barber. We have profiles of all our barbers so you can see their specialties.",
+      "variations": ["Request barber", "Choose my barber", "Specific barber"]
+    },
+    {
+      "id": 21,
+      "category": "booking",
+      "question": "How early should I book?",
+      "keywords": ["advance", "early", "notice", "ahead"],
+      "response": "For weekends and evenings, we recommend booking 2-3 days ahead. Same-day bookings are often available, especially on weekday mornings. Walk-ins are welcome too!",
+      "variations": ["Book in advance", "How far ahead", "Last minute booking"]
+    },
+    {
+      "id": 22,
+      "category": "booking",
+      "question": "Can I cancel my booking?",
+      "keywords": ["cancel", "change", "reschedule", "modify"],
+      "response": "Yes! You can cancel or reschedule up to 2 hours before your appointment at no charge. Just call us or use your booking confirmation link.",
+      "variations": ["Cancel appointment", "Reschedule booking", "Change my booking"]
+    },
+    {
+      "id": 23,
+      "category": "booking",
+      "question": "What if I'm late for my appointment?",
+      "keywords": ["late", "delay", "traffic", "miss"],
+      "response": "We hold your slot for 15 minutes. If you're running late, please call us. For delays over 15 minutes, we may need to reschedule to avoid affecting other customers.",
+      "variations": ["Running late", "Traffic delay", "Missed appointment"]
+    },
+    {
+      "id": 24,
+      "category": "location",
+      "question": "Is there parking available?",
+      "keywords": ["parking", "car", "park", "vehicle"],
+      "response": "Yes! We have free parking for customers behind the shop. There's also street parking available on Barber Street.",
+      "variations": ["Car parking", "Where to park", "Parking space"]
+    },
+    {
+      "id": 25,
+      "category": "hours",
+      "question": "Are you open on public holidays?",
+      "keywords": ["holiday", "public holiday", "closed"],
+      "response": "We are closed on major public holidays including Independence Day, Eid, Christmas, and New Year's Day. A notice is posted on our door and social media a week before.",
+      "variations": ["Holiday hours", "Open on holidays", "Christmas opening"]
+    },
+    {
+      "id": 26,
+      "category": "barbers",
+      "question": "How many barbers do you have?",
+      "keywords": ["barbers", "staff", "how many", "team"],
+      "response": "We have 6 experienced barbers, each with 5+ years of experience. Our team includes specialists in fades, traditional cuts, beard styling, and hair design.",
+      "variations": ["Number of barbers", "Barber team", "Staff members"]
+    },
+    {
+      "id": 27,
+      "category": "barbers",
+      "question": "Which barber is best for fades?",
+      "keywords": ["best", "fade", "barber", "recommend"],
+      "response": "All our barbers are skilled at fades! Kofi and Emmanuel are particularly known for their precision fade work. You can see their work in our gallery.",
+      "variations": ["Fade specialist", "Best fade barber", "Who does the best fades"]
+    },
+    {
+      "id": 28,
+      "category": "kids",
+      "question": "Do you cut children's hair?",
+      "keywords": ["kids", "children", "child", "baby"],
+      "response": "Yes! We love cutting kids' hair. Children aged 0-12 get a special rate of ₵35. We have lollipops, cartoons playing, and patient barbers who are great with children.",
+      "variations": ["Child haircut", "Kids haircut price", "Toddler haircut"]
+    },
+    {
+      "id": 29,
+      "category": "kids",
+      "question": "What age do you start cutting hair?",
+      "keywords": ["age", "minimum", "baby", "infant"],
+      "response": "We accept children from 6 months old. For babies and toddlers, we recommend coming during quieter hours (mornings weekdays) for a calmer experience.",
+      "variations": ["Baby's first haircut", "Youngest age", "Infant haircut"]
+    },
+    {
+      "id": 30,
+      "category": "events",
+      "question": "Do you do wedding haircuts?",
+      "keywords": ["wedding", "groom", "bridal", "special occasion"],
+      "response": "Yes! We offer premium wedding packages including groom and groomsmen styling. Includes consultation, trial session, and on-site services on your wedding day. From ₵150.",
+      "variations": ["Wedding grooming", "Groom haircut", "Bridal party"]
+    },
+    {
+      "id": 31,
+      "category": "events",
+      "question": "Can you come to my event?",
+      "keywords": ["event", "mobile", "on-site", "location"],
+      "response": "Yes! We offer mobile barber services for events including weddings, birthday parties, corporate events, and photoshoots. Minimum booking is 5 people. Contact us for a quote.",
+      "variations": ["Mobile barber", "On-site haircuts", "Barber for party"]
+    },
+    {
+      "id": 32,
+      "category": "loyalty",
+      "question": "Do you have a loyalty program?",
+      "keywords": ["loyalty", "reward", "points", "membership"],
+      "response": "Yes! Our Loyalty Club gives you 1 point per ₵10 spent. Every 10 points earns you a ₵10 discount. Members also get early access to promotions and birthday discounts.",
+      "variations": ["Reward program", "Points system", "Customer loyalty"]
+    },
+    {
+      "id": 33,
+      "category": "loyalty",
+      "question": "How do I join the loyalty program?",
+      "keywords": ["join", "sign up", "register", "enroll"],
+      "response": "Just ask at the counter or sign up during online booking using your phone number. It's free and you start earning points from your first visit!",
+      "variations": ["Sign up for loyalty", "Loyalty program enrollment", "How to join"]
+    },
+    {
+      "id": 34,
+      "category": "payment",
+      "question": "Do you accept credit cards?",
+      "keywords": ["credit card", "card", "visa", "mastercard"],
+      "response": "Yes! We accept Visa, Mastercard, and Amex. We also accept mobile money (MTN, Vodafone, AirtelTigo) and good old cash.",
+      "variations": ["Card payment", "Pay with card", "Credit card accepted"]
+    },
+    {
+      "id": 35,
+      "category": "payment",
+      "question": "Do you offer refunds?",
+      "keywords": ["refund", "money back", "guarantee", "satisfaction"],
+      "response": "We stand by our work. If you're not satisfied with your haircut, please let us know within 24 hours and we'll fix it free of charge. Refunds are offered on a case-by-case basis.",
+      "variations": ["Money back", "Satisfaction guarantee", "Not happy with cut"]
+    },
+    {
+      "id": 36,
+      "category": "maintenance",
+      "question": "How often should I wash my hair?",
+      "keywords": ["wash", "shampoo", "clean", "hygiene"],
+      "response": "For African hair types, we recommend washing 1-2 times per week with a sulfate-free shampoo. Over-washing can strip natural oils. Co-washing (conditioner only) between washes is great.",
+      "variations": ["Hair washing frequency", "How to wash black hair", "Best shampoo routine"]
+    },
+    {
+      "id": 37,
+      "category": "maintenance",
+      "question": "What's the best oil for my hair?",
+      "keywords": ["oil", "moisturize", "shea butter", "natural"],
+      "response": "For African hair, we recommend jojoba oil, argan oil, or sweet almond oil. Local Ghanaian shea butter is excellent for sealing in moisture. We stock all of these in our shop.",
+      "variations": ["Best hair oil", "Natural oils for hair", "Shea butter for hair"]
+    },
+    {
+      "id": 38,
+      "category": "maintenance",
+      "question": "How do I prevent ingrown hairs?",
+      "keywords": ["ingrown", "bumps", "razor", "irritation"],
+      "response": "To prevent ingrown hairs: exfoliate gently before shaving, shave in the direction of growth, use a sharp blade, and apply a moisturizing aftershave. Our hot towel treatment also helps.",
+      "variations": ["Razor bumps", "Ingrown hair prevention", "Shaving irritation"]
+    },
+    {
+      "id": 39,
+      "category": "styles",
+      "question": "What hairstyle would suit me?",
+      "keywords": ["suit", "recommend", "style", "face shape"],
+      "response": "Our barbers provide free style consultations. We analyze your face shape, hair texture, and lifestyle to recommend the perfect cut. Book a consultation anytime!",
+      "variations": ["Style recommendation", "What style fits me", "Haircut advice"]
+    },
+    {
+      "id": 40,
+      "category": "styles",
+      "question": "What are the trending hairstyles in Ghana?",
+      "keywords": ["trending", "fashion", "popular", "modern"],
+      "response": "Popular styles right now include: low and mid fades, burst fades, curly top fades, afro-textured crops, and designs/partings. Our barbers stay updated with global trends.",
+      "variations": ["Popular cuts Ghana", "Trending styles 2024", "Modern haircuts"]
+    },
+    {
+      "id": 41,
+      "category": "styles",
+      "question": "Can you do hair designs?",
+      "keywords": ["design", "pattern", "line", "art"],
+      "response": "Yes! Our barbers are skilled in hair designs including lines, zigzags, geometric patterns, and custom artwork. Design prices start at ₵15 added to any haircut.",
+      "variations": ["Hair patterns", "Line designs", "Creative cuts"]
+    },
+    {
+      "id": 42,
+      "category": "beard",
+      "question": "How do I grow a fuller beard?",
+      "keywords": ["beard", "full", "grow", "thick"],
+      "response": "For a fuller beard: be patient (it takes 4-6 weeks), use beard oil daily, brush regularly to stimulate follicles, eat a protein-rich diet, and consider our beard growth treatment (₵45).",
+      "variations": ["Beard growth tips", "Thicker beard", "Fill in beard"]
+    },
+    {
+      "id": 43,
+      "category": "beard",
+      "question": "What beard services do you offer?",
+      "keywords": ["beard service", "trim", "shape", "groom"],
+      "response": "We offer beard trimming (₵30), beard shaping (₵35), full beard grooming with hot towel (₵50), and beard dye/greying (₵40). We use premium beard products.",
+      "variations": ["Beard grooming", "Beard shaping", "Beard maintenance"]
+    },
+    {
+      "id": 44,
+      "category": "beard",
+      "question": "How do I maintain my beard?",
+      "keywords": ["beard care", "maintain", "oil", "brush"],
+      "response": "Daily routine: wash 2-3 times weekly, apply beard oil daily, brush with boar bristle brush, trim edges weekly, and visit us every 2-3 weeks for professional shaping.",
+      "variations": ["Beard maintenance routine", "Daily beard care", "How to care for beard"]
+    },
+    {
+      "id": 45,
+      "category": "shaving",
+      "question": "Do you offer straight razor shaves?",
+      "keywords": ["straight razor", "cutthroat", "blade", "wet shave"],
+      "response": "Yes! We offer professional straight razor shaves (₵40). It includes hot towel prep, pre-shave oil, lather, the shave itself, and a soothing aftershave balm. Very relaxing!",
+      "variations": ["Wet shave", "Traditional shave", "Cutthroat shave"]
+    },
+    {
+      "id": 46,
+      "category": "shaving",
+      "question": "Is a straight razor shave safe?",
+      "keywords": ["safe", "safety", "cut", "hygiene"],
+      "response": "Absolutely. Our barbers are trained professionals who use new, sterilized blades for every customer. We follow strict hygiene protocols including sanitizing all equipment between uses.",
+      "variations": ["Shave safety", "Hygiene standards", "Is it safe"]
+    },
+    {
+      "id": 47,
+      "category": "corporate",
+      "question": "Do you offer corporate accounts?",
+      "keywords": ["corporate", "business", "company", "account"],
+      "response": "Yes! We offer corporate accounts for businesses. Benefits include priority booking, monthly invoicing, discounted rates for groups of 5+, and on-site barber services. Email info@marconis.com for details.",
+      "variations": ["Business accounts", "Company bookings", "Corporate services"]
+    },
+    {
+      "id": 48,
+      "category": "gift_cards",
+      "question": "Do you sell gift cards?",
+      "keywords": ["gift", "voucher", "card", "present"],
+      "response": "Yes! We offer digital and physical gift cards from ₵50 upwards. Perfect for birthdays, holidays, or any occasion. Buy online or in-store.",
+      "variations": ["Gift voucher", "Buy gift card", "Gift for friend"]
+    },
+    {
+      "id": 49,
+      "category": "faq",
+      "question": "How long does a haircut take?",
+      "keywords": ["long", "time", "duration", "how long"],
+      "response": "A standard haircut takes 20-30 minutes. A haircut with beard combo takes 40-50 minutes. Hot towel shaves take about 30 minutes. We never rush quality!",
+      "variations": ["Haircut duration", "Service time", "How long to wait"]
+    },
+    {
+      "id": 50,
+      "category": "faq",
+      "question": "Do I need to make an appointment?",
+      "keywords": ["appointment", "walk-in", "need", "necessary"],
+      "response": "Walk-ins are always welcome! However, booking is recommended, especially for weekends and evenings, to avoid waiting. You can book online 24/7.",
+      "variations": ["Walk-in welcome", "Need appointment", "Can I just show up"]
+    },
+    {
+      "id": 51,
+      "category": "faq",
+      "question": "What COVID-19 measures do you have?",
+      "keywords": ["covid", "corona", "safety", "mask"],
+      "response": "We maintain high hygiene standards: all equipment is sterilized, hand sanitizer is provided, our shop is well-ventilated, and our staff follows health guidelines.",
+      "variations": ["COVID precautions", "Health measures", "Safety protocols"]
+    },
+    {
+      "id": 52,
+      "category": "faq",
+      "question": "Can I bring my own products?",
+      "keywords": ["own", "products", "bring", "personal"],
+      "response": "Of course! You're welcome to bring your own shampoo, conditioner, or styling products. We're happy to use what works best for your hair.",
+      "variations": ["Use my own products", "Bring my shampoo", "Personal products"]
+    },
+    {
+      "id": 53,
+      "category": "products",
+      "question": "What hair products do you sell?",
+      "keywords": ["sell", "buy", "shop", "purchase"],
+      "response": "We stock a range of quality products: beard oils and balms, pomades, hair creams, shampoos, conditioners, and local Ghanaian shea butter. Ask at the counter for recommendations!",
+      "variations": ["Products for sale", "Buy hair products", "Shop products"]
+    },
+    {
+      "id": 54,
+      "category": "products",
+      "question": "Do you sell beard oil?",
+      "keywords": ["beard oil", "balm", "butter", "beard product"],
+      "response": "Yes! We have our own Marconi's Beard Oil (₵25) made with jojoba, argan, and essential oils. Also available in sandalwood and peppermint scents.",
+      "variations": ["Beard oil price", "Buy beard oil", "Beard balm"]
+    },
+    {
+      "id": 55,
+      "category": "local_customs",
+      "question": "Do you speak Twi?",
+      "keywords": ["Twi", "Ga", "language", "Ghanaian"],
+      "response": "Yes! Our barbers speak English, Twi, Ga, and Hausa. We serve customers from all backgrounds and make everyone feel at home.",
+      "variations": ["Local language", "Twi speaking", "Ghanaian languages"]
+    },
+    {
+      "id": 56,
+      "category": "local_customs",
+      "question": "Do you play music in the shop?",
+      "keywords": ["music", "atmosphere", "vibe", "play"],
+      "response": "Yes! We play a mix of highlife, afrobeat, hiplife, and contemporary music. It's a relaxed, friendly atmosphere where you can unwind.",
+      "variations": ["Music in shop", "What music", "Shop atmosphere"]
+    },
+    {
+      "id": 57,
+      "category": "barbers",
+      "question": "Are your barbers trained?",
+      "keywords": ["trained", "qualified", "certified", "experience"],
+      "response": "All our barbers are fully trained with 5+ years of experience. Many hold certifications from top barbering schools in Ghana and abroad. We invest in continuous training.",
+      "variations": ["Barber qualifications", "Training background", "Experience level"]
+    },
+    {
+      "id": 58,
+      "category": "hair_care",
+      "question": "How do I prevent hair breakage?",
+      "keywords": ["breakage", "damage", "snap", "fall"],
+      "response": "To prevent breakage: moisturize daily, avoid tight hairstyles, use a wide-tooth comb, sleep with a satin bonnet or pillowcase, and get regular trims. Our deep conditioning treatment (₵45) helps too.",
+      "variations": ["Stop hair breakage", "Hair damage repair", "Stronger hair"]
+    },
+    {
+      "id": 59,
+      "category": "pricing",
+      "question": "Do you have any packages or combos?",
+      "keywords": ["package", "combo", "bundle", "deal"],
+      "response": "Yes! Our popular combos: Haircut + Beard ₵70 (save ₵10), Full Grooming Package ₵120 (haircut, beard, facial), and Student Special ₵45 (Monday-Thursday with ID).",
+      "variations": ["Bundle deals", "Combined services", "Package prices"]
+    },
+    {
+      "id": 60,
+      "category": "services",
+      "question": "Do you offer facial massages?",
+      "keywords": ["facial", "massage", "face", "relax"],
+      "response": "Yes! Our facial massage (₵35) includes cleansing, exfoliation, massage with essential oils, and moisturizing. It's a great add-on to any haircut for total relaxation.",
+      "variations": ["Face massage", "Facial treatment", "Relaxation service"]
+    },
+    {
+      "id": 61,
+      "category": "local_customs",
+      "question": "Is there a waiting area?",
+      "keywords": ["wait", "sit", "lounge", "comfortable"],
+      "response": "Yes! We have a comfortable waiting area with air conditioning, free WiFi, water, and magazines. You can also watch TV while you wait.",
+      "variations": ["Waiting area", "Can I wait inside", "Shop facilities"]
+    },
+    {
+      "id": 62,
+      "category": "booking",
+      "question": "Can I book for a group?",
+      "keywords": ["group", "team", "multiple", "together"],
+      "response": "Yes! We accept group bookings for teams, wedding parties, and events. For groups of 3+, please call us at 0599363145 to coordinate simultaneous appointments.",
+      "variations": ["Group appointment", "Book for team", "Multiple people"]
+    },
+    {
+      "id": 63,
+      "category": "styles",
+      "question": "What is a taper vs a fade?",
+      "keywords": ["taper", "fade", "difference", "explain"],
+      "response": "A fade gradually blends hair from short to skin-length, usually on the sides and back. A taper is a shorter gradient that doesn't go down to the skin. Fades are more dramatic, tapers are more conservative. We can show you examples!",
+      "variations": ["Fade vs taper", "Difference between taper and fade", "Which style"]
+    },
+    {
+      "id": 64,
+      "category": "hair_care",
+      "question": "Should I use conditioner?",
+      "keywords": ["conditioner", "condition", "soft", "smooth"],
+      "response": "Yes! Conditioner is essential for maintaining moisture and softness. Use a leave-in conditioner daily and a deep conditioner weekly. We recommend sulfate-free products for African hair.",
+      "variations": ["Do I need conditioner", "Best conditioner", "Conditioning tips"]
+    },
+    {
+      "id": 65,
+      "category": "products",
+      "question": "Do you sell pomade?",
+      "keywords": ["pomade", "gel", "wax", "hold"],
+      "response": "Yes! We stock Murray's Pomade, Dax Wave and Groom, and our own Marconi's Premium Pomade (₵30). Available in light, medium, and strong hold.",
+      "variations": ["Hair pomade", "Styling gel", "Hair wax"]
+    },
+    {
+      "id": 66,
+      "category": "local_customs",
+      "question": "Is there WiFi at the shop?",
+      "keywords": ["WiFi", "internet", "wireless", "online"],
+      "response": "Yes! Free high-speed WiFi for all customers. Ask at the counter for the password.",
+      "variations": ["Free internet", "WiFi password", "Can I use WiFi"]
+    },
+    {
+      "id": 67,
+      "category": "kids",
+      "question": "My child is scared of haircuts. Any tips?",
+      "keywords": ["scared", "afraid", "cry", "nervous"],
+      "response": "We're great with nervous children! We recommend: coming during quiet hours, bringing a favorite toy, letting them watch another child first, and our barbers are patient and gentle. Many kids end up loving it!",
+      "variations": ["Child afraid of haircuts", "Nervous toddler", "First haircut tips"]
+    },
+    {
+      "id": 68,
+      "category": "events",
+      "question": "Do you do graduation haircuts?",
+      "keywords": ["graduation", "school", "graduate", "ceremony"],
+      "response": "Yes! We offer special graduation packages including haircut, beard grooming, and style consultation. Group discounts available for classmates. Book early during graduation season!",
+      "variations": ["Graduation style", "School graduation", "Graduation grooming"]
+    },
+    {
+      "id": 69,
+      "category": "corporate",
+      "question": "Do you offer regular barber services for offices?",
+      "keywords": ["office", "workplace", "corporate", "business"],
+      "response": "Yes! Our Corporate Barber Program brings a barber to your office on scheduled days. Employees can book 15-minute slots. Perfect for busy professionals. Call 0599363145 to set up.",
+      "variations": ["Office barber", "Workplace haircuts", "Corporate barber program"]
+    },
+    {
+      "id": 70,
+      "category": "pricing",
+      "question": "What is your most popular service?",
+      "keywords": ["popular", "favorite", "best", "top"],
+      "response": "Our Haircut + Beard Combo (₵70) is by far the most popular. It gives you a complete fresh look and saves you ₵10. Our classic fades are a close second!",
+      "variations": ["Best selling service", "Most booked", "Customer favorite"]
+    },
+    {
+      "id": 71,
+      "category": "hair_care",
+      "question": "How do I style my afro?",
+      "keywords": ["afro", "natural", "pick", "fro"],
+      "response": "For a great afro: keep it moisturized, use a wide-tooth afro pick, shape it by trimming the edges, and apply a light hold product. Visit us for professional shaping (₵45).",
+      "variations": ["Afro styling", "Natural hair styling", "Afro maintenance"]
+    },
+    {
+      "id": 72,
+      "category": "services",
+      "question": "Do you offer hair steaming?",
+      "keywords": ["steam", "steaming", "hot oil", "treatment"],
+      "response": "Yes! Our hot oil steam treatment (₵55) opens hair cuticles for deep conditioning, promotes growth, and relieves dry scalp. Very popular during the harmattan season!",
+      "variations": ["Steam treatment", "Hot oil treatment", "Deep conditioning"]
+    },
+    {
+      "id": 73,
+      "category": "local_customs",
+      "question": "Do you have air conditioning?",
+      "keywords": ["AC", "air conditioning", "cool", "fan"],
+      "response": "Yes! Our shop is fully air-conditioned for your comfort. No need to worry about Accra heat while getting your haircut.",
+      "variations": ["Air conditioned", "Is it cool", "Temperature"]
+    },
+    {
+      "id": 74,
+      "category": "faq",
+      "question": "What if I don't like my haircut?",
+      "keywords": ["don't like", "fix", "adjust", "redo"],
+      "response": "No worries! If you're not satisfied, let us know before you leave and we'll adjust it for free. Customer satisfaction is our priority.",
+      "variations": ["Not happy", "Fix haircut", "Adjustment policy"]
+    },
+    {
+      "id": 75,
+      "category": "barbers",
+      "question": "Can I request a specific barber style?",
+      "keywords": ["style", "specialty", "specialist", "expert"],
+      "response": "Yes! Each barber has specialties. Check our website for barber profiles and portfolios. Kofi is our fade specialist, Emmanuel for classic cuts, and John for beard sculpting.",
+      "variations": ["Barber specialties", "Which barber for what", "Specialist barbers"]
+    },
+    {
+      "id": 76,
+      "category": "services",
+      "question": "Do you do eyebrow grooming?",
+      "keywords": ["eyebrow", "unibrow", "shape", "groom"],
+      "response": "Yes! Eyebrow shaping and unibrow removal (₵15) available as an add-on to any service. We use sterilized tools and professional techniques.",
+      "variations": ["Eyebrow shaping", "Unibrow removal", "Eyebrow trim"]
+    },
+    {
+      "id": 77,
+      "category": "pricing",
+      "question": "Are prices negotiable?",
+      "keywords": ["negotiate", "discount", "bargain", "cheaper"],
+      "response": "Our prices are fixed for the quality and service we provide. However, we regularly run promotions and offer loyalty rewards. Join our Loyalty Club for exclusive discounts!",
+      "variations": ["Can I bargain", "Lower price", "Any discounts"]
+    },
+    {
+      "id": 78,
+      "category": "local_customs",
+      "question": "Do you sell cold drinks?",
+      "keywords": ["drink", "water", "refreshment", "mineral"],
+      "response": "Yes! We offer complimentary water, and have soft drinks and bottled water available for purchase while you wait or during your service.",
+      "variations": ["Cold water", "Soft drinks", "Refreshments"]
+    },
+    {
+      "id": 79,
+      "category": "booking",
+      "question": "What information do I need to book?",
+      "keywords": ["info", "details", "need", "required"],
+      "response": "Just your name, phone number, preferred date/time, and service type. If you want a specific barber, let us know! Online booking takes less than 2 minutes.",
+      "variations": ["Booking requirements", "What to bring", "Reservation details"]
+    },
+    {
+      "id": 80,
+      "category": "faq",
+      "question": "How do I contact you?",
+      "keywords": ["contact", "call", "reach", "phone"],
+      "response": "Call or WhatsApp us at 0599363145, email info@marconis.com, or visit us at 123 Barber Street, Osu, Accra. We're active on Instagram and Facebook too!",
+      "variations": ["Phone number", "Email address", "Contact information"]
+    }
+  ],
+  "fallback_responses": [
+    "That's a great question! At Marconi's Barber Shop, we're here to help. Feel free to call us at 0599363145 for any specific enquiries.",
+    "Thanks for reaching out! Our experienced team can help with that. Would you like to book a consultation or visit us in Osu?",
+    "Great question! We've been serving Accra since 2010 with quality barbering. For detailed answers, visit us in person or give us a call.",
+    "I'd love to help with that! For the most accurate information, please call the shop directly at 0599363145 or stop by.",
+    "That's something we can definitely discuss! Our barbers are experts in all hair types and styles. Book an appointment for a personalized consultation."
+  ],
+  "categories_info": {
+    "pricing": {
+      "description": "Questions about costs, pricing, discounts, and packages",
+      "common_keywords": ["price", "cost", "how much", "charge", "expensive", "cheap", "discount", "deal", "package", "combo", "save"]
+    },
+    "services": {
+      "description": "Questions about services offered",
+      "common_keywords": ["services", "haircut", "beard", "shave", "style", "offer", "do you", "treatment", "facial", "dye", "color", "braid", "dread"]
+    },
+    "hair_care": {
+      "description": "Hair maintenance and care advice",
+      "common_keywords": ["maintain", "care", "wash", "products", "tips", "grow", "dandruff", "moisturize", "breakage", "scalp", "conditioner"]
+    },
+    "local_customs": {
+      "description": "Ghana-specific customs, location, and business info",
+      "common_keywords": ["Ghana", "local", "Accra", "Osu", "location", "hours", "open", "close", "parking", "language", "Twi", "WiFi", "AC"]
+    },
+    "products": {
+      "description": "Hair products and recommendations",
+      "common_keywords": ["products", "oil", "pomade", "wax", "gel", "shampoo", "conditioner", "shea butter", "buy", "sell", "beard oil"]
+    },
+    "booking": {
+      "description": "Appointment booking and scheduling",
+      "common_keywords": ["book", "appointment", "reserve", "schedule", "cancel", "reschedule", "late", "group", "walk-in"]
+    },
+    "barbers": {
+      "description": "Information about barbers and staff",
+      "common_keywords": ["barber", "staff", "trained", "experience", "specialist", "Kofi", "Emmanuel", "who"]
+    },
+    "kids": {
+      "description": "Children's haircut services",
+      "common_keywords": ["kids", "children", "child", "baby", "toddler", "scared", "first haircut"]
+    },
+    "events": {
+      "description": "Special event and wedding services",
+      "common_keywords": ["wedding", "event", "graduation", "party", "groom", "mobile", "on-site"]
+    },
+    "loyalty": {
+      "description": "Loyalty program and rewards",
+      "common_keywords": ["loyalty", "reward", "points", "membership", "join", "sign up"]
+    },
+    "payment": {
+      "description": "Payment methods and refunds",
+      "common_keywords": ["pay", "payment", "mobile money", "momo", "card", "cash", "refund"]
+    },
+    "styles": {
+      "description": "Hairstyle advice and trending styles",
+      "common_keywords": ["style", "trend", "fashion", "suit", "recommend", "fade", "taper", "afro", "design"]
+    },
+    "beard": {
+      "description": "Beard grooming and care",
+      "common_keywords": ["beard", "trim", "shape", "grow", "oil", "balm", "beard care"]
+    },
+    "shaving": {
+      "description": "Shaving services",
+      "common_keywords": ["shave", "razor", "straight", "wet shave", "blade"]
+    },
+    "corporate": {
+      "description": "Corporate and business accounts",
+      "common_keywords": ["corporate", "business", "office", "company", "account"]
+    },
+    "gift_cards": {
+      "description": "Gift cards and vouchers",
+      "common_keywords": ["gift", "voucher", "card", "present"]
+    },
+    "faq": {
+      "description": "General frequently asked questions",
+      "common_keywords": ["how long", "contact", "phone", "email", "COVID", "satisfaction", "guarantee"]
+    }
+  }
+}

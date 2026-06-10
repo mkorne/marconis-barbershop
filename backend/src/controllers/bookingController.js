@@ -104,6 +104,7 @@ class BookingController {
       }
 
       // Create booking
+      const bookingNumber = 'BK-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
       const booking = await prisma.booking.create({
         data: {
           customerId: customer.id,
@@ -112,6 +113,7 @@ class BookingController {
           date: parseISO(date),
           startTime,
           endTime,
+          bookingNumber,
           status: 'PENDING'
         },
         include: {
@@ -121,9 +123,9 @@ class BookingController {
         }
       });
 
-      // Send confirmation SMS
+      // Send confirmation SMS (fire-and-forget, don't block response)
       const smsMessage = `Booking confirmed! ${service.name} on ${format(parseISO(date), 'MMM dd, yyyy')} at ${startTime}. Booking ID: ${booking.id}`;
-      await sendSMS(customerPhone, smsMessage);
+      sendSMS(customerPhone, smsMessage).catch(err => logger.warn('SMS send failed:', err.message));
 
       logger.info(`New booking created: ${booking.id}`);
 
@@ -283,6 +285,48 @@ class BookingController {
       res.json({ bookings });
     } catch (error) {
       logger.error('Error getting customer bookings:', error);
+      res.status(500).json({ error: 'Failed to get bookings' });
+    }
+  }
+
+  // Get all bookings (admin)
+  async getBookings(req, res) {
+    try {
+      const { page = 1, limit = 20, status, date, barberId } = req.query;
+
+      const skip = (page - 1) * limit;
+      const where = {};
+      if (status) where.status = status;
+      if (date) where.date = parseISO(date);
+      if (barberId) where.barberId = barberId;
+
+      const [bookings, totalCount] = await Promise.all([
+        prisma.booking.findMany({
+          where,
+          skip,
+          take: Math.min(parseInt(limit), 100),
+          orderBy: { createdAt: 'desc' },
+          include: {
+            customer: { select: { id: true, name: true, phone: true, email: true } },
+            service: true,
+            barber: { select: { id: true, name: true } },
+            payment: true
+          }
+        }),
+        prisma.booking.count({ where })
+      ]);
+
+      res.json({
+        bookings,
+        pagination: {
+          page: parseInt(page),
+          limit: parseInt(limit),
+          total: totalCount,
+          pages: Math.ceil(totalCount / limit)
+        }
+      });
+    } catch (error) {
+      logger.error('Error getting bookings:', error);
       res.status(500).json({ error: 'Failed to get bookings' });
     }
   }

@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const messagesModule = require('./messages');
 
 router.get('/test', (req, res) => {
   res.json({ message: 'Chat routes working!', timestamp: new Date().toISOString() });
 });
 
-router.get('/messages', (req, res) => {
-  res.status(501).json({ message: 'Chat messages endpoint not yet implemented' });
+// Delegate chat messages to the messages route handler
+router.get('/messages', (req, res, next) => {
+  req.url = '/';
+  messagesModule.router(req, res, next);
 });
 
 module.exports = router;

@@ -10,30 +10,59 @@ require('dotenv').config();
 
 const { connectDatabase } = require('./config/database');
 const logger = require('./config/logger');
-const socketHandler = require('./services/socketService');
+const { socketHandler } = require('./services/socketService');
+const chatbotService = require('./services/chatbotService');
 
 // Import routes
 const authRoutes = require('./routes/auth');
 const bookingRoutes = require('./routes/bookings');
 const serviceRoutes = require('./routes/services');
-const paymentRoutes = require('./routes/payments');
+const paymentRoutesModule = require('./routes/payments');
+const messagesRoutesModule = require('./routes/messages');
 const chatRoutes = require('./routes/chat');
 const adminRoutes = require('./routes/admin');
+const imageRoutes = require('./routes/images');
+const chatbotRoutes = require('./routes/chatbot');
 
 const app = express();
 const server = createServer(app);
+// Allow multiple frontend origins (3000 for dev frontend, 3001 when served by backend)
+const allowedOriginsEnv = process.env.FRONTEND_URL || process.env.FRONTEND_URLS || '';
+const allowedOrigins = allowedOriginsEnv
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean);
+if (allowedOrigins.length === 0) {
+  allowedOrigins.push('http://localhost:3000', 'http://localhost:3001');
+}
+
+console.log('✅ Configured CORS for origins:', allowedOrigins);
+
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3001",
-    methods: ["GET", "POST"]
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 
 // Security middleware
 app.use(helmet({
-  contentSecurityPolicy: false, // For development - configure properly in production
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com", "https://cdn.socket.io", "https://cdnjs.cloudflare.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com"],
+      fontSrc: ["'self'", "https://cdnjs.cloudflare.com"],
+      connectSrc: ["'self'", "ws:", "wss:"],
+      imgSrc: ["'self'", "data:", "https:", "http://res.cloudinary.com"],
+      frameSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: []
+    }
+  }
 }));
 
 // Rate limiting
@@ -44,9 +73,14 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// CORS configuration
+// CORS configuration supporting multiple origins
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3001',
+  origin: function(origin, callback) {
+    // Allow non-browser clients with no Origin header (like curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }));
 
@@ -66,13 +100,20 @@ app.use((req, res, next) => {
   next();
 });
 
+// Pass Socket.io instance to route modules that need real-time functionality
+paymentRoutesModule.setSocketIO(io);
+messagesRoutesModule.setSocketIO(io);
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/services', serviceRoutes);
-app.use('/api/payments', paymentRoutes);
+app.use('/api/payments', paymentRoutesModule.router);
+app.use('/api/messages', messagesRoutesModule.router);
 app.use('/api/chat', chatRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/images', imageRoutes);
+app.use('/api/chatbot', chatbotRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -131,6 +172,10 @@ const startServer = async () => {
   try {
     await connectDatabase();
     logger.info('Database connected successfully');
+    
+    // Initialize chatbot service
+    await chatbotService.initialize();
+    logger.info('Chatbot service initialized successfully');
     
     server.listen(PORT, () => {
       logger.info(`Server running on port ${PORT}`);

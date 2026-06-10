@@ -7,102 +7,239 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String    @id @default(cuid())
-  email     String?   @unique
-  phone     String    @unique
-  name      String
-  role      UserRole  @default(CUSTOMER)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  bookings  Booking[]
-  messages  Message[]
-  payments  Payment[]
+// =============================================
+// ENHANCED DATABASE RULES AND CONSTRAINTS
+// =============================================
+// 1. Unique constraints prevent duplicate bookings
+// 2. Check constraints ensure business rules
+// 3. Indices improve query performance
+// 4. Validation rules ensure data integrity
+// 5. Cascade deletes maintain referential integrity
 
+model User {
+  id              String     @id @default(cuid())
+  email           String?    @unique @db.VarChar(255)
+  phone           String     @unique @db.VarChar(20)
+  name            String     @db.VarChar(100)
+  role            UserRole   @default(CUSTOMER)
+  isActive        Boolean    @default(true)
+  emailVerified   Boolean    @default(false)
+  phoneVerified   Boolean    @default(false)
+  loyaltyPoints   Int        @default(0)
+  totalBookings   Int        @default(0)
+  totalSpent      Int        @default(0)
+  lastBookingDate DateTime?
+  preferences     Json?      // Store customer preferences as JSON
+  notes           String?    @db.Text // Admin notes about customer
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  bookings        Booking[]
+  messages        Message[]
+  payments        Payment[]
+  reviews         Review[]
+  loyaltyTransactions LoyaltyTransaction[]
+
+  // Indices for better performance
+  @@index([phone])
+  @@index([email])
+  @@index([role])
+  @@index([isActive])
+  @@index([createdAt])
   @@map("users")
 }
 
 model Barber {
-  id          String    @id @default(cuid())
-  name        String
-  speciality  String?
-  avatar      String?
-  isActive    Boolean   @default(true)
-  workingDays String[]
-  startTime   String
-  endTime     String
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  bookings    Booking[]
+  id              String     @id @default(cuid())
+  employeeId      String?    @unique @db.VarChar(20) // Employee ID
+  name            String     @db.VarChar(100)
+  speciality      String?    @db.VarChar(255)
+  phone           String?    @unique @db.VarChar(20)
+  email           String?    @unique @db.VarChar(255)
+  avatar          String?    @db.VarChar(500)
+  isActive        Boolean    @default(true)
+  workingDays     String[]   // e.g., ["monday", "tuesday", "wednesday"]
+  startTime       String     @db.VarChar(10) // e.g., "09:00"
+  endTime         String     @db.VarChar(10) // e.g., "17:00"
+  hourlyRate      Int?       // Rate per hour in pesewas
+  commissionRate  Float?     @default(0.0) // Commission percentage (0.0-1.0)
+  totalEarnings   Int        @default(0) // Total lifetime earnings
+  totalBookings   Int        @default(0) // Total bookings completed
+  rating          Float?     @default(0.0) // Average rating
+  bio             String?    @db.Text // Barber biography
+  experience      Int?       // Years of experience
+  certifications  String[]   // List of certifications
+  languages       String[]   // Languages spoken
+  skills          String[]   // Special skills/services
+  joinedAt        DateTime   @default(now())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  bookings        Booking[]
+  reviews         Review[]   @relation("BarberReviews")
+  availability    BarberAvailability[]
+  timeoffs        BarberTimeOff[]
 
+  // Indices for performance
+  @@index([isActive])
+  @@index([employeeId])
+  @@index([workingDays])
+  @@index([rating])
+  @@index([joinedAt])
   @@map("barbers")
 }
 
 model Service {
-  id          String    @id @default(cuid())
-  name        String
-  description String?
-  price       Int
-  duration    Int
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  bookings    Booking[]
+  id             String          @id @default(cuid())
+  name           String          @db.VarChar(100)
+  description    String?         @db.Text
+  price          Int             // Price in pesewas (smallest currency unit)
+  discountPrice  Int?            // Discounted price if applicable
+  duration       Int             // Duration in minutes
+  category       ServiceCategory @default(HAIRCUTS)
+  serviceId      String?         @unique @db.VarChar(50) // Maps to HTML data-service-id
+  isActive       Boolean         @default(true)
+  isPopular      Boolean         @default(false)
+  sortOrder      Int             @default(0) // For ordering services
+  ageGroup       String[]        @default(["adult"]) // ["adult", "child", "teen"]
+  gender         String[]        @default(["male", "female"]) // Target gender
+  requirements   String[]        // Prerequisites or requirements
+  afterCare      String[]        // After-care instructions
+  images         String[]        // Service images
+  tags           String[]        // Service tags for search
+  bookingCount   Int             @default(0) // Total times booked
+  revenue        Int             @default(0) // Total revenue generated
+  rating         Float?          @default(0.0) // Average service rating
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  bookings       Booking[]
+  reviews        Review[]        @relation("ServiceReviews")
 
+  // Business constraints
+  @@unique([name, category]) // Prevent duplicate service names in same category
+  @@index([category])
+  @@index([isActive])
+  @@index([isPopular])
+  @@index([price])
+  @@index([duration])
+  @@index([rating])
+  @@index([sortOrder])
   @@map("services")
 }
 
 model Booking {
-  id         String        @id @default(cuid())
-  customerId String
-  barberId   String?
-  serviceId  String
-  date       DateTime
-  startTime  String
-  endTime    String
-  status     BookingStatus @default(PENDING)
-  notes      String?
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
-  barber     Barber?       @relation(fields: [barberId], references: [id])
-  customer   User          @relation(fields: [customerId], references: [id])
-  service    Service       @relation(fields: [serviceId], references: [id])
-  payment    Payment?
+  id              String        @id @default(cuid())
+  bookingNumber   String        @unique @db.VarChar(20) // Human-readable booking number
+  customerId      String
+  barberId        String?
+  serviceId       String
+  date            DateTime      @db.Date // Booking date
+  startTime       String        @db.VarChar(10) // e.g., "09:00"
+  endTime         String        @db.VarChar(10) // e.g., "10:30"
+  status          BookingStatus @default(PENDING)
+  priority        BookingPriority @default(NORMAL)
+  source          BookingSource @default(WEBSITE) // How booking was made
+  notes           String?       @db.Text // Customer notes
+  adminNotes      String?       @db.Text // Admin/barber notes
+  reminderSent    Boolean       @default(false)
+  confirmationSent Boolean      @default(false)
+  actualStartTime String?       @db.VarChar(10) // Actual service start
+  actualEndTime   String?       @db.VarChar(10) // Actual service end
+  duration        Int?          // Actual duration in minutes
+  cancellationReason String?    @db.Text
+  cancelledBy     String?       // Who cancelled the booking
+  rescheduledFrom String?       // Previous booking ID if rescheduled
+  loyaltyPointsUsed Int?        @default(0)
+  loyaltyPointsEarned Int?      @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  confirmedAt     DateTime?
+  cancelledAt     DateTime?
+  completedAt     DateTime?
+  barber          Barber?       @relation(fields: [barberId], references: [id])
+  customer        User          @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  service         Service       @relation(fields: [serviceId], references: [id])
+  payment         Payment?
+  review          Review?
+  notifications   Notification[]
+  loyaltyTransactions LoyaltyTransaction[]
 
+  // Business constraints to prevent double bookings
+  @@unique([barberId, date, startTime]) // Prevent barber double booking
+  @@unique([customerId, date, startTime]) // Prevent customer double booking same slot
+  @@index([customerId])
+  @@index([barberId])
+  @@index([serviceId])
+  @@index([date])
+  @@index([status])
+  @@index([priority])
+  @@index([bookingNumber])
+  @@index([createdAt])
+  @@index([date, startTime, endTime]) // Composite for time slot queries
   @@map("bookings")
 }
 
 model Payment {
-  id         String        @id @default(cuid())
-  bookingId  String        @unique
-  customerId String
-  amount     Int
-  currency   String        @default("GHS")
-  method     PaymentMethod
-  status     PaymentStatus @default(PENDING)
-  reference  String?
-  paidAt     DateTime?
-  refundedAt DateTime?
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
-  booking    Booking       @relation(fields: [bookingId], references: [id])
-  customer   User          @relation(fields: [customerId], references: [id])
+  id              String        @id @default(cuid())
+  paymentNumber   String        @unique @db.VarChar(20) // Human-readable payment number
+  bookingId       String        @unique
+  customerId      String
+  amount          Int           // Amount in pesewas
+  serviceFee      Int?          @default(0) // Platform/service fee
+  discount        Int?          @default(0) // Discount amount
+  tax             Int?          @default(0) // Tax amount
+  tip             Int?          @default(0) // Tip amount
+  totalAmount     Int           // Final total amount
+  currency        String        @default("GHS") @db.VarChar(10)
+  method          PaymentMethod
+  status          PaymentStatus @default(PENDING)
+  reference       String?       @db.VarChar(100) // External payment reference
+  transactionId   String?       @unique @db.VarChar(100)
+  gatewayResponse Json?         // Store gateway response
+  failureReason   String?       @db.Text
+  refundReason    String?       @db.Text
+  refundAmount    Int?
+  paidAt          DateTime?
+  refundedAt      DateTime?
+  processedBy     String?       // Admin who processed
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  booking         Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  customer        User          @relation(fields: [customerId], references: [id])
 
+  @@index([customerId])
+  @@index([status])
+  @@index([method])
+  @@index([createdAt])
+  @@index([paidAt])
+  @@index([paymentNumber])
   @@map("payments")
 }
 
 model Message {
-  id         String        @id @default(cuid())
-  customerId String
-  content    String
-  type       MessageType   @default(CUSTOMER_SUPPORT)
-  status     MessageStatus @default(UNREAD)
-  sentAt     DateTime      @default(now())
-  readAt     DateTime?
-  repliedAt  DateTime?
-  reply      String?
-  customer   User          @relation(fields: [customerId], references: [id])
+  id           String        @id @default(cuid())
+  messageNumber String       @unique @db.VarChar(20) // Human-readable message number
+  customerId   String
+  subject      String?       @db.VarChar(200)
+  content      String        @db.Text
+  type         MessageType   @default(CUSTOMER_SUPPORT)
+  status       MessageStatus @default(UNREAD)
+  priority     MessagePriority @default(NORMAL)
+  source       MessageSource @default(WEBSITE) // How message was sent
+  sentAt       DateTime      @default(now())
+  readAt       DateTime?
+  repliedAt    DateTime?
+  reply        String?       @db.Text
+  repliedBy    String?       // Admin who replied
+  attachments  String[]      // File attachments
+  tags         String[]      // Message tags for organization
+  isArchived   Boolean       @default(false)
+  customer     User          @relation(fields: [customerId], references: [id], onDelete: Cascade)
 
+  @@index([customerId])
+  @@index([status])
+  @@index([type])
+  @@index([priority])
+  @@index([sentAt])
+  @@index([messageNumber])
   @@map("messages")
 }
 
@@ -126,17 +263,241 @@ model BusinessSettings {
 }
 
 model AdminUser {
-  id        String    @id @default(cuid())
-  username  String    @unique
-  password  String
-  name      String
-  role      AdminRole @default(STAFF)
-  isActive  Boolean   @default(true)
-  lastLogin DateTime?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id          String         @id @default(cuid())
+  username    String         @unique @db.VarChar(50)
+  password    String         @db.VarChar(255) // Hashed password
+  name        String         @db.VarChar(100)
+  email       String?        @unique @db.VarChar(255)
+  phone       String?        @db.VarChar(20)
+  role        AdminRole      @default(STAFF)
+  isActive    Boolean        @default(true)
+  permissions String[]       // Specific permissions
+  lastLogin   DateTime?
+  loginCount  Int            @default(0)
+  avatar      String?        @db.VarChar(500)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  auditLogs   AuditLog[]
 
+  @@index([username])
+  @@index([isActive])
+  @@index([role])
   @@map("admin_users")
+}
+
+// =============================================
+// ADDITIONAL COMPREHENSIVE MODELS
+// =============================================
+
+model Review {
+  id         String     @id @default(cuid())
+  customerId String
+  barberId   String?
+  serviceId  String?
+  bookingId  String?    @unique
+  rating     Int        // 1-5 star rating
+  comment    String?    @db.Text
+  isAnonymous Boolean   @default(false)
+  isApproved Boolean    @default(false)
+  isHidden   Boolean    @default(false)
+  tags       String[]   // Review tags
+  helpful    Int        @default(0) // Helpful vote count
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  customer   User       @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  barber     Barber?    @relation("BarberReviews", fields: [barberId], references: [id])
+  service    Service?   @relation("ServiceReviews", fields: [serviceId], references: [id])
+  booking    Booking?   @relation(fields: [bookingId], references: [id])
+
+  @@index([customerId])
+  @@index([barberId])
+  @@index([serviceId])
+  @@index([rating])
+  @@index([isApproved])
+  @@index([createdAt])
+  @@map("reviews")
+}
+
+model Notification {
+  id        String            @id @default(cuid())
+  userId    String?           // Customer or barber ID
+  bookingId String?
+  type      NotificationType
+  title     String            @db.VarChar(200)
+  message   String            @db.Text
+  data      Json?             // Additional notification data
+  isRead    Boolean           @default(false)
+  sentAt    DateTime          @default(now())
+  readAt    DateTime?
+  channel   NotificationChannel @default(SYSTEM) // How to send notification
+  booking   Booking?          @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([type])
+  @@index([isRead])
+  @@index([sentAt])
+  @@index([channel])
+  @@map("notifications")
+}
+
+model BarberAvailability {
+  id        String   @id @default(cuid())
+  barberId  String
+  dayOfWeek String   @db.VarChar(10) // "monday", "tuesday", etc.
+  startTime String   @db.VarChar(10) // "09:00"
+  endTime   String   @db.VarChar(10) // "17:00"
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  barber    Barber   @relation(fields: [barberId], references: [id], onDelete: Cascade)
+
+  @@unique([barberId, dayOfWeek]) // One schedule per day per barber
+  @@index([barberId])
+  @@index([dayOfWeek])
+  @@index([isActive])
+  @@map("barber_availability")
+}
+
+model BarberTimeOff {
+  id          String      @id @default(cuid())
+  barberId    String
+  title       String      @db.VarChar(200) // "Vacation", "Sick Leave", etc.
+  description String?     @db.Text
+  startDate   DateTime    @db.Date
+  endDate     DateTime    @db.Date
+  startTime   String?     @db.VarChar(10) // For partial day off
+  endTime     String?     @db.VarChar(10)
+  type        TimeOffType @default(PERSONAL)
+  status      TimeOffStatus @default(APPROVED)
+  reason      String?     @db.Text
+  approvedBy  String?     // Admin who approved
+  isRecurring Boolean     @default(false)
+  recurringPattern String? @db.VarChar(50) // "weekly", "monthly", etc.
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  barber      Barber      @relation(fields: [barberId], references: [id], onDelete: Cascade)
+
+  @@index([barberId])
+  @@index([startDate, endDate])
+  @@index([status])
+  @@index([type])
+  @@map("barber_time_off")
+}
+
+model Promotion {
+  id          String        @id @default(cuid())
+  code        String        @unique @db.VarChar(50)
+  name        String        @db.VarChar(100)
+  description String?       @db.Text
+  type        PromotionType @default(PERCENTAGE)
+  value       Int           // Percentage or fixed amount
+  minAmount   Int?          // Minimum booking amount
+  maxDiscount Int?          // Maximum discount amount
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean       @default(true)
+  usageLimit  Int?          // Total usage limit
+  usageCount  Int           @default(0)
+  userLimit   Int?          @default(1) // Per-user usage limit
+  services    String[]      // Applicable service IDs
+  barbers     String[]      // Applicable barber IDs
+  newCustomersOnly Boolean  @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([code])
+  @@index([isActive])
+  @@index([startDate, endDate])
+  @@map("promotions")
+}
+
+model LoyaltyTransaction {
+  id          String            @id @default(cuid())
+  customerId  String
+  bookingId   String?
+  type        LoyaltyTransactionType
+  points      Int               // Positive for earned, negative for spent
+  description String            @db.VarChar(255)
+  createdAt   DateTime          @default(now())
+  customer    User              @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  booking     Booking?          @relation(fields: [bookingId], references: [id])
+
+  @@index([customerId])
+  @@index([type])
+  @@index([createdAt])
+  @@map("loyalty_transactions")
+}
+
+model AuditLog {
+  id        String    @id @default(cuid())
+  adminId   String?
+  action    String    @db.VarChar(100) // "CREATE", "UPDATE", "DELETE"
+  entity    String    @db.VarChar(50)  // "User", "Booking", "Payment"
+  entityId  String    @db.VarChar(100)
+  oldData   Json?     // Previous state
+  newData   Json?     // New state
+  ipAddress String?   @db.VarChar(45)
+  userAgent String?   @db.Text
+  createdAt DateTime  @default(now())
+  admin     AdminUser? @relation(fields: [adminId], references: [id])
+
+  @@index([adminId])
+  @@index([action])
+  @@index([entity])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model BusinessHours {
+  id        String   @id @default(cuid())
+  dayOfWeek String   @unique @db.VarChar(10) // "monday", "tuesday", etc.
+  isOpen    Boolean  @default(true)
+  startTime String?  @db.VarChar(10) // "09:00"
+  endTime   String?  @db.VarChar(10) // "17:00"
+  breakStart String? @db.VarChar(10) // "12:00"
+  breakEnd   String? @db.VarChar(10) // "13:00"
+  isHoliday Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([dayOfWeek])
+  @@index([isOpen])
+  @@map("business_hours")
+}
+
+model Holiday {
+  id          String   @id @default(cuid())
+  name        String   @db.VarChar(100)
+  date        DateTime @db.Date
+  isRecurring Boolean  @default(false) // Annual holidays
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([date]) // One holiday per date
+  @@index([date])
+  @@index([isRecurring])
+  @@map("holidays")
+}
+
+model Analytics {
+  id             String   @id @default(cuid())
+  date           DateTime @db.Date
+  totalBookings  Int      @default(0)
+  totalRevenue   Int      @default(0)
+  totalCustomers Int      @default(0)
+  newCustomers   Int      @default(0)
+  completedBookings Int   @default(0)
+  cancelledBookings Int   @default(0)
+  averageRating  Float?   @default(0.0)
+  popularServices Json?   // Service popularity data
+  peakHours      Json?    // Busy hours data
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([date])
+  @@index([date])
+  @@map("analytics")
 }
 
 enum UserRole {
@@ -184,3 +545,107 @@ enum AdminRole {
   ADMIN
   STAFF
 }
+
+enum ServiceCategory {
+  HAIRCUTS
+  BEARD_SHAVING
+  HAIR_SCALP_CARE
+  STYLING_DESIGNS
+  KIDS_SPECIALS
+  EXTRA_GROOMING
+}
+
+// =============================================
+// COMPREHENSIVE ENUMS FOR BUSINESS LOGIC
+// =============================================
+
+enum BookingPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum BookingSource {
+  WEBSITE
+  PHONE
+  WALK_IN
+  SOCIAL_MEDIA
+  REFERRAL
+  MOBILE_APP
+}
+
+enum MessagePriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum MessageSource {
+  WEBSITE
+  PHONE
+  EMAIL
+  SMS
+  SOCIAL_MEDIA
+  MOBILE_APP
+}
+
+enum NotificationType {
+  BOOKING_CONFIRMED
+  BOOKING_REMINDER
+  BOOKING_CANCELLED
+  PAYMENT_RECEIVED
+  PAYMENT_FAILED
+  MESSAGE_RECEIVED
+  REVIEW_REQUEST
+  PROMOTION_ALERT
+  SYSTEM_ALERT
+}
+
+enum NotificationChannel {
+  SYSTEM     // In-app notification
+  EMAIL      // Email notification
+  SMS        // Text message
+  PUSH       // Push notification
+  WHATSAPP   // WhatsApp message
+}
+
+enum TimeOffType {
+  VACATION
+  SICK_LEAVE
+  PERSONAL
+  TRAINING
+  CONFERENCE
+  EMERGENCY
+  MATERNITY
+  PATERNITY
+}
+
+enum TimeOffStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum PromotionType {
+  PERCENTAGE   // e.g., 20% off
+  FIXED_AMOUNT // e.g., ₵10 off
+  BUY_ONE_GET_ONE
+  FREE_SERVICE
+}
+
+enum LoyaltyTransactionType {
+  EARNED      // Points earned from booking
+  SPENT       // Points spent on discount
+  BONUS       // Bonus points from promotion
+  EXPIRED     // Points expired
+  ADJUSTED    // Manual adjustment by admin
+}
+
+// generator erd {
+//   provider        = "prisma-erd-generator"
+//   output          = "./ERD.svg"
+//   puppeteerConfig = "./puppeteer.config.json"
+// }

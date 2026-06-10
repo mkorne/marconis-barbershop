@@ -1,7 +1,7 @@
 // Admin Dashboard JavaScript
 class AdminDashboard {
     constructor() {
-        this.API_BASE = window.location.origin + '/api/admin';
+        this.API_BASE = `${window.AppConfig?.api?.baseUrl || 'http://localhost:5000'}/api/admin`;
         this.token = localStorage.getItem('adminToken');
         this.isLoggedIn = false;
         

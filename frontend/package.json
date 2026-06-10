@@ -7,7 +7,7 @@
     "start": "live-server public --port=3000 --open=/",
     "dev": "live-server public --port=3000 --open=/ --watch=src,public",
     "build": "npm run copy-assets",
-    "copy-assets": "cp -r src/* public/ 2>/dev/null || true",
+    "copy-assets": "mkdir -p public/src && cp -r src/* public/src/ 2>/dev/null || true",
     "serve": "http-server public -p 3000 -o",
     "lint": "eslint src/js/**/*.js",
     "format": "prettier --write src/js/**/*.js public/**/*.html"

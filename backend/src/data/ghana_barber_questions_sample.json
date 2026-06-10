@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "description": "Ghana-specific barbershop questions and responses",
+    "language": "en-GH",
+    "total_questions": 50,
+    "categories": ["pricing", "services", "hair_care", "local_customs", "products"]
+  },
+  "questions": [
+    {
+      "id": 1,
+      "category": "pricing",
+      "question": "How much is a haircut in Ghana?",
+      "keywords": ["price", "cost", "how much", "Ghana"],
+      "response": "Our haircut prices start from ₵35 for kids and ₵50 for adults. We offer competitive rates typical for quality barber shops in Ghana.",
+      "variations": [
+        "What are your prices?",
+        "Cost of haircut",
+        "How much do you charge?"
+      ]
+    },
+    {
+      "id": 2,
+      "category": "services",
+      "question": "Do you do traditional Ghanaian hairstyles?",
+      "keywords": ["traditional", "Ghanaian", "local", "African"],
+      "response": "Yes! We specialize in traditional Ghanaian cuts including high-top fades, line-ups, and classic African styles. Our barbers understand different hair textures.",
+      "variations": [
+        "African hairstyles",
+        "Local haircuts",
+        "Traditional cuts"
+      ]
+    },
+    {
+      "id": 3,
+      "category": "products",
+      "question": "What hair products do you use for African hair?",
+      "keywords": ["products", "African hair", "moisturizer", "grease"],
+      "response": "We use quality products designed for African hair including natural oils, moisturizing creams, and specialized hair grease. We stock brands like Blue Magic, Murray's, and local Ghanaian products.",
+      "variations": [
+        "Hair grease recommendations",
+        "Products for black hair",
+        "What hair products"
+      ]
+    },
+    {
+      "id": 4,
+      "category": "local_customs",
+      "question": "Do you accept Mobile Money payments?",
+      "keywords": ["mobile money", "momo", "payment", "MTN", "Vodafone"],
+      "response": "Yes, we accept MTN Mobile Money, Vodafone Cash, and AirtelTigo Money. You can pay via mobile money or cash - whichever is convenient for you.",
+      "variations": [
+        "MoMo payment",
+        "Can I pay with mobile money",
+        "Payment methods"
+      ]
+    },
+    {
+      "id": 5,
+      "category": "hair_care",
+      "question": "How do I maintain my haircut in Ghana's weather?",
+      "keywords": ["maintain", "weather", "humidity", "care"],
+      "response": "In Ghana's humid climate, use a light moisturizer daily, avoid over-washing, and visit for touch-ups every 2-3 weeks. We recommend protective styles during rainy season.",
+      "variations": [
+        "Hair care tips Ghana",
+        "Maintain haircut humidity",
+        "Hair care advice"
+      ]
+    }
+  ],
+  "fallback_responses": [
+    "That's a great question! At Marconi's, we understand the unique needs of Ghanaian customers. Let me connect you with our experienced barbers.",
+    "Thanks for asking! We've been serving the local community since 2010 and can help with any hair-related questions.",
+    "Interesting question! Our barbers have expertise with all hair types common in Ghana. Would you like to book a consultation?"
+  ],
+  "categories_info": {
+    "pricing": {
+      "description": "Questions about costs and pricing",
+      "common_keywords": ["price", "cost", "how much", "charge", "expensive", "cheap"]
+    },
+    "services": {
+      "description": "Questions about services offered",
+      "common_keywords": ["services", "haircut", "beard", "shave", "style"]
+    },
+    "hair_care": {
+      "description": "Hair maintenance and care advice",
+      "common_keywords": ["maintain", "care", "wash", "products", "tips"]
+    },
+    "local_customs": {
+      "description": "Ghana-specific customs and practices",
+      "common_keywords": ["Ghana", "local", "mobile money", "traditional"]
+    },
+    "products": {
+      "description": "Hair products and recommendations",
+      "common_keywords": ["products", "grease", "oil", "shampoo", "conditioner"]
+    }
+  }
+}
