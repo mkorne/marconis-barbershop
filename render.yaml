@@ -19,7 +19,7 @@ services:
           name: marconis-barbershop-db
           property: connectionString
       - key: FRONTEND_URL
-        value: https://barbering.marconi.com
+        sync: false
       # These need to be set manually in Render dashboard
       - key: JWT_SECRET
         sync: false
@@ -65,21 +65,6 @@ services:
         value: 5242880
       - key: ALLOWED_FILE_TYPES
         value: image/jpeg,image/png,image/gif,image/webp
-
-  # Frontend Static Site
-  - type: static
-    name: marconis-barbershop-frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./public
-    rootDir: frontend
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: NODE_ENV
-        value: production
-
 # PostgreSQL Database
 databases:
   - name: marconis-barbershop-db
